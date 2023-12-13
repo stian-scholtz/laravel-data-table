@@ -1,0 +1,23 @@
+<?php
+
+namespace {{ namespace }};
+
+use Stianscholtz\LaravelDataTable\DataTableBuilder;
+use Stianscholtz\LaravelDataTable\DataTableProvider;
+use Illuminate\Database\Query\Builder;
+
+class {{ class }} extends DataTableProvider
+{
+    /**
+     * @return Builder|\Illuminate\Database\Eloquent\Builder
+     */
+    public function query(): Builder|\Illuminate\Database\Eloquent\Builder
+    {
+        //TODO: Build query
+    }
+
+    public function columns(DataTableBuilder $builder): void
+    {
+        //TODO: Build columns
+    }
+}

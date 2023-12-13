@@ -1,0 +1,50 @@
+{
+    "name": "stianscholtz/laravel-data-table",
+    "description": "A Laravel package to create data tables.",
+    "type": "library",
+    "keywords": [
+        "stian-scholtz",
+        "laravel",
+        "data tables"
+    ],
+    "homepage": "https://github.com/stian-scholtz/laravel-data-table",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stian Scholtz",
+            "email": "stian678@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/console": "^10.35",
+        "illuminate/contracts": "^10.35",
+        "illuminate/database": "^10.35",
+        "illuminate/http": "^10.35",
+        "illuminate/support": "^10.35"
+    },
+    "autoload": {
+        "psr-4": {
+            "Stianscholtz\\LaravelDataTable\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {}
+    },
+    "scripts": {},
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {}
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Stianscholtz\\LaravelDataTable\\LaravelDataTableServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
