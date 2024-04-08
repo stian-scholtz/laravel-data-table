@@ -2,6 +2,7 @@
 
 namespace Stianscholtz\LaravelDataTable;
 
+use Illuminate\Support\Str;
 use Stianscholtz\LaravelDataTable\Columns\Column;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -23,7 +24,7 @@ class DataTableBuilder implements Arrayable
      */
     public function __call(string $name, array $arguments)
     {
-        $columnClass = __NAMESPACE__.'\Columns\\'.\Str::studly($name);
+        $columnClass = __NAMESPACE__.'\Columns\\'.Str::studly($name);
 
         return $this->column(new $columnClass(...$arguments));
     }

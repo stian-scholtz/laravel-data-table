@@ -3,6 +3,7 @@
 namespace Stianscholtz\LaravelDataTable;
 
 use Illuminate\Contracts\Database\Query\Builder;
+use League\Csv\CannotInsertRecord;
 
 abstract class DataTableProvider
 {
@@ -18,8 +19,9 @@ abstract class DataTableProvider
     abstract public function columns(DataTableBuilder $builder): void;
 
     /**
-     * @param  array  $pageParameters
+     * @param  array $pageParameters
      * @return array
+     * @throws CannotInsertRecord
      */
     public static function get(array $pageParameters = []): array
     {

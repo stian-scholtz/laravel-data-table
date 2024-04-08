@@ -2,16 +2,16 @@
 
 namespace Stianscholtz\LaravelDataTable;
 
+use Illuminate\Support\Facades\DB;
+use League\Csv\CannotInsertRecord;
 use Stianscholtz\LaravelDataTable\Columns\Column;
-use DB;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Stianscholtz\QueryExporter\QueryExporter;
 
 class DataTable
 {
-    public DataTableProvider $provider;
-
     protected Builder $query;
 
     protected Collection $columns;
@@ -25,9 +25,8 @@ class DataTable
     /**
      * @param  DataTableProvider  $provider
      */
-    public function __construct(DataTableProvider $provider)
+    public function __construct(public DataTableProvider $provider)
     {
-        $this->provider = $provider;
         $this->query = $this->provider->query();
         $this->setColumns();
         $this->term = request('term');
@@ -44,16 +43,19 @@ class DataTable
 
     /**
      * @return array
+     * @throws CannotInsertRecord
      */
     public function get(): array
     {
-        $this->setColumns();
-
-        $this->setSearchable();
-
         $this->applySearch();
 
         $this->select();
+
+        if(intval(request('export', 0)) === 1) {
+            $this->export();
+        }
+
+        $this->setSearchable();
 
         $this->setList();
 
@@ -110,5 +112,19 @@ class DataTable
     protected function setList(): void
     {
         $this->list = $this->query->paginate()->withQueryString();
+    }
+
+    /**
+     * @throws CannotInsertRecord
+     */
+    protected function export(?string $filename = null): void
+    {
+        $exporter = QueryExporter::forQuery($this->query);
+
+        if($filename) {
+            $exporter->filename($filename);
+        }
+
+        $exporter->export();
     }
 }
