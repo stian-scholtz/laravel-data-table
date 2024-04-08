@@ -51,7 +51,7 @@ class DataTable
 
         $this->select();
 
-        if(intval(request('export', 0)) === 1) {
+        if (intval(request('export', 0)) === 1) {
             $this->export();
         }
 
@@ -64,6 +64,7 @@ class DataTable
                 'list' => $this->list,
                 'columns' => $this->columns,
                 'searchable' => $this->searchable,
+                'exportable' => $this->provider->exportable(),
                 'term' => $this->term,
             ]
         ];
@@ -121,7 +122,7 @@ class DataTable
     {
         $exporter = QueryExporter::forQuery($this->query);
 
-        if($filename) {
+        if ($filename) {
             $exporter->filename($filename);
         }
 

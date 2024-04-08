@@ -4,14 +4,16 @@ namespace {{ namespace }};
 
 use Stianscholtz\LaravelDataTable\DataTableBuilder;
 use Stianscholtz\LaravelDataTable\DataTableProvider;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Contracts\Database\Query\Builder;
 
 class {{ class }} extends DataTableProvider
 {
+    protected bool $exportable = false;
+
     /**
-     * @return Builder|\Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
-    public function query(): Builder|\Illuminate\Database\Eloquent\Builder
+    public function query(): Builder
     {
         //TODO: Build query
     }
