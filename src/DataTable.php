@@ -43,7 +43,6 @@ class DataTable
 
     /**
      * @return array
-     * @throws CannotInsertRecord
      */
     public function get(): array
     {
@@ -115,9 +114,6 @@ class DataTable
         $this->list = $this->query->paginate()->withQueryString();
     }
 
-    /**
-     * @throws CannotInsertRecord
-     */
     protected function export(?string $filename = null): void
     {
         $exporter = QueryExporter::forQuery($this->query);
@@ -126,6 +122,10 @@ class DataTable
             $exporter->filename($filename);
         }
 
-        $exporter->export();
+        try {
+            $exporter->export();
+        } catch (CannotInsertRecord|\Exception $e) {
+
+        }
     }
 }
